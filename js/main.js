@@ -19,23 +19,37 @@ document.querySelectorAll('.photo img').forEach((img) => {
 const y = document.getElementById('year');
 if (y) y.textContent = new Date().getFullYear();
 
-// Contact form: build the message, then let the visitor send it with Gmail, Outlook or their email app
+// Contact form: sends the message straight to the inbox through Web3Forms
 const form = document.getElementById('contact-form');
 if (form) {
-  form.addEventListener('submit', (e) => {
+  const status = document.getElementById('form-status');
+  const show = (html) => { status.innerHTML = html; status.hidden = false; };
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const d = new FormData(form);
-    const to = form.dataset.email;
-    const subject = `Website message from ${d.get('name')}: ${d.get('reason')}`;
-    const body = `${d.get('message')}\n\n${d.get('name')}\n${d.get('email')}`;
-    const q = (k, v) => `${k}=${encodeURIComponent(v)}`;
-    document.getElementById('send-gmail').href =
-      `https://mail.google.com/mail/?view=cm&fs=1&${q('to', to)}&${q('su', subject)}&${q('body', body)}`;
-    document.getElementById('send-outlook').href =
-      `https://outlook.live.com/mail/0/deeplink/compose?${q('to', to)}&${q('subject', subject)}&${q('body', body)}`;
-    document.getElementById('send-app').href = `mailto:${to}?${q('subject', subject)}&${q('body', body)}`;
-    const box = document.getElementById('send-options');
-    box.hidden = false;
-    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const btn = form.querySelector('button[type=submit]');
+    btn.disabled = true; btn.textContent = 'Sending...';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: form.dataset.key,
+          subject: `Website message from ${d.get('name')}: ${d.get('reason')}`,
+          from_name: 'nicholasdylewski.com',
+          name: d.get('name'), email: d.get('email'),
+          reason: d.get('reason'), message: d.get('message'),
+        }),
+      });
+      const out = await res.json();
+      if (!out.success) throw new Error(out.message);
+      form.reset();
+      show('<p><strong>Thanks, your message was sent!</strong> I&rsquo;ll get back to you soon.</p>');
+    } catch (err) {
+      const to = form.dataset.email;
+      show(`<p>Sorry, the message couldn&rsquo;t be sent right now. Please email me directly at <a href="mailto:${to}">${to}</a>.</p>`);
+    } finally {
+      btn.disabled = false; btn.textContent = 'Send message';
+    }
   });
 }
