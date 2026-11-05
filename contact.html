@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 <header class="site-header">
@@ -40,7 +40,10 @@
     <div>
       <h2>Send me a message</h2>
       <!-- FORM: opens the visitor's email app with the message addressed to the email below (no outside service needed). -->
-      <form id="contact-form" data-email="ndylewski2005@gmail.com" data-key="4ca8000e-0b85-4483-968e-e91e03096978">
+      <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" data-email="ndylewski2005@gmail.com" data-key="4ca8000e-0b85-4483-968e-e91e03096978">
+        <input type="hidden" name="access_key" value="4ca8000e-0b85-4483-968e-e91e03096978">
+        <input type="hidden" name="subject" value="New message from nicholasdylewski.com">
+        <input type="hidden" name="from_name" value="nicholasdylewski.com">
         <div class="field"><label for="name">Name</label><input id="name" name="name" required></div>
         <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required></div>
         <div class="field"><label for="reason">I&rsquo;m reaching out about</label>
@@ -88,6 +91,6 @@
     <div class="copyright">&copy; <span id="year">2026</span> Nicholas Dylewski. All rights reserved.</div>
   </div>
 </footer>
-<script src="js/main.js?v=3" defer></script>
+<script src="js/main.js?v=5" defer></script>
 </body>
 </html>
