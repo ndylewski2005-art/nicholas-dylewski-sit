@@ -41,13 +41,15 @@ if (form) {
           reason: d.get('reason'), message: d.get('message'),
         }),
       });
-      const out = await res.json();
-      if (!out.success) throw new Error(out.message);
+      const text = await res.text();
+      let out = {};
+      try { out = JSON.parse(text); } catch (_) { out = { message: `HTTP ${res.status}` }; }
+      if (!out.success) throw new Error(out.message || `HTTP ${res.status}`);
       form.reset();
       show('<p><strong>Thanks, your message was sent!</strong> I&rsquo;ll get back to you soon.</p>');
     } catch (err) {
       const to = form.dataset.email;
-      show(`<p>Sorry, the message couldn&rsquo;t be sent right now. Please email me directly at <a href="mailto:${to}">${to}</a>.</p>`);
+      show(`<p>Sorry, the message couldn&rsquo;t be sent right now. Please email me directly at <a href="mailto:${to}">${to}</a>.</p><p style="font-size:.8rem;color:#8a6d00;margin-top:8px">Details: ${String(err && err.message || err).replace(/</g, '&lt;')}</p>`);
     } finally {
       btn.disabled = false; btn.textContent = 'Send message';
     }
