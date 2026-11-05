@@ -18,7 +18,7 @@ Plain HTML/CSS/JS with no build step. Open `index.html` in a browser to preview 
    - tipsy-towers-game-concept.jpg, joobie-distributions-amazon-store.jpg
 2. **Blog posts:** write 600+ words in each file in `blog/` (search for `WRITE:`).
 3. **Video:** upload to YouTube and paste the embed link in `index.html` (search for `VIDEO:`).
-4. **Contact form:** sends to ndylewski2005@gmail.com through FormSubmit. The first message sent after the site is live triggers a one-time activation email; click the link in it.
+4. **Contact form:** opens the visitor's email app with the message addressed to ndylewski2005@gmail.com. No outside service.
 6. **Publish:** GitHub Pages or Netlify Drop (drag this folder onto app.netlify.com/drop).
 
 Note: the resume PDF in `files/` includes your phone number, which becomes public once the site is live.

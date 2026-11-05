@@ -39,10 +39,8 @@
   <div class="container grid grid-2" style="gap:48px">
     <div>
       <h2>Send me a message</h2>
-      <!-- FORM: sends submissions to the email below via FormSubmit (formsubmit.co). The first submission sends a one-time activation email that must be confirmed. -->
-      <form action="https://formsubmit.co/ndylewski2005@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="New message from your personal website">
-        <input type="hidden" name="_template" value="table">
+      <!-- FORM: opens the visitor's email app with the message addressed to the email below (no outside service needed). -->
+      <form id="contact-form" data-email="ndylewski2005@gmail.com">
         <div class="field"><label for="name">Name</label><input id="name" name="name" required></div>
         <div class="field"><label for="email">Email</label><input id="email" type="email" name="email" required></div>
         <div class="field"><label for="reason">I&rsquo;m reaching out about</label>
@@ -55,6 +53,7 @@
           </select></div>
         <div class="field"><label for="message">Message</label><textarea id="message" name="message" required></textarea></div>
         <button class="btn btn-primary" type="submit">Send message</button>
+        <p class="form-note" style="font-size:.9rem;color:var(--muted);margin-top:12px">This opens your email app with your message ready to send. Prefer to write directly? Email <a href="mailto:ndylewski2005@gmail.com">ndylewski2005@gmail.com</a>.</p>
       </form>
     </div>
     <div>
