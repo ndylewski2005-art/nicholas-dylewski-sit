@@ -19,14 +19,23 @@ document.querySelectorAll('.photo img').forEach((img) => {
 const y = document.getElementById('year');
 if (y) y.textContent = new Date().getFullYear();
 
-// Contact form: open the visitor's email app with the message pre-filled
+// Contact form: build the message, then let the visitor send it with Gmail, Outlook or their email app
 const form = document.getElementById('contact-form');
 if (form) {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const d = new FormData(form);
+    const to = form.dataset.email;
     const subject = `Website message from ${d.get('name')}: ${d.get('reason')}`;
     const body = `${d.get('message')}\n\n${d.get('name')}\n${d.get('email')}`;
-    window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const q = (k, v) => `${k}=${encodeURIComponent(v)}`;
+    document.getElementById('send-gmail').href =
+      `https://mail.google.com/mail/?view=cm&fs=1&${q('to', to)}&${q('su', subject)}&${q('body', body)}`;
+    document.getElementById('send-outlook').href =
+      `https://outlook.live.com/mail/0/deeplink/compose?${q('to', to)}&${q('subject', subject)}&${q('body', body)}`;
+    document.getElementById('send-app').href = `mailto:${to}?${q('subject', subject)}&${q('body', body)}`;
+    const box = document.getElementById('send-options');
+    box.hidden = false;
+    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 }

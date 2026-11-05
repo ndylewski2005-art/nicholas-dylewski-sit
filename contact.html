@@ -53,7 +53,15 @@
           </select></div>
         <div class="field"><label for="message">Message</label><textarea id="message" name="message" required></textarea></div>
         <button class="btn btn-primary" type="submit">Send message</button>
-        <p class="form-note" style="font-size:.9rem;color:var(--muted);margin-top:12px">This opens your email app with your message ready to send. Prefer to write directly? Email <a href="mailto:ndylewski2005@gmail.com">ndylewski2005@gmail.com</a>.</p>
+        <div id="send-options" class="send-options" hidden>
+          <p><strong>Almost done!</strong> Choose how to send your message. It&rsquo;s already filled in for you:</p>
+          <div class="btn-row" style="margin-top:.6em">
+            <a class="btn btn-primary" id="send-gmail" target="_blank" rel="noopener">Send with Gmail</a>
+            <a class="btn btn-dark" id="send-outlook" target="_blank" rel="noopener">Send with Outlook</a>
+            <a class="btn btn-dark" id="send-app">Use my email app</a>
+          </div>
+        </div>
+        <p class="form-note" style="font-size:.9rem;color:var(--muted);margin-top:12px">Prefer to write directly? Email <a href="mailto:ndylewski2005@gmail.com">ndylewski2005@gmail.com</a>.</p>
       </form>
     </div>
     <div>
